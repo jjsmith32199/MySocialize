@@ -19,6 +19,6 @@ app.get('/', (req, res) => {
 
 db.once('open', () => {
     app.listen(PORT, () => {
-        console.log(`Server listening on https://localhost:${PORT}.`);
+        console.log(`Server listening on http://localhost:${PORT}.`);
     });
 });
