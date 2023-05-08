@@ -1,45 +1,22 @@
-const { Schema, model } = require('mongoose');
+const { Schema, model} = require('mongoose');
 
+// Create Schema for users collection and friends subdocument data
 const userSchema = new Schema(
     {
         username: {
             type: String,
             required: true,
             unique: true,
-            trim: true // removes whitespace around string for username
+            trim: true,
         },
         email: {
             type: String,
             required: true,
             unique: true,
-            match: [/.+@.+\..+/] // regex for email validation
-        },
-        // Array of _id values referencing the Thought model
-        thoughts: [
-            {
-                type: Schema.Types.ObjectId,
-                ref: 'Thought'
-            },
-        ],
-        friends: [
-            {
-                type: Schema.Types.ObjectId,
-                ref: 'user'
-            },
-        ],
-    },
-    {
-        toJson: {
-            virtuals: true,
-        },
-        id: false
-    }
-);
+            match: [/.+@.+\..+/, 'Please enter a valid e-mail address'],
 
-userSchema.virtual('friendCount').get(function () {
-    return this.friends.length;
+    }
 });
 
-const User = model('user', userSchema);
-
-module.exports = User
+const User = model('User', userSchema);
+module.exports = User;
